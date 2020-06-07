@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="gameActivityBackground">#242833</color>
+    <color name="gameActivityGreen">#4bc27e</color>
+    <color name="gameActivityBlue">#0994bf</color>
+    <color name="gameActivityRed">#ff7177</color>
+    <color name="gameActivityScore">#4f525b</color>
+</resources>
