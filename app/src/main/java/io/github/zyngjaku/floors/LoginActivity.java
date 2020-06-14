@@ -5,11 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,7 +29,13 @@ import java.util.UUID;
 
 public class LoginActivity extends Activity {
 
+    private static final String TAG = "Login";
+    DatabaseHelper mDatabaseHelper;
+
+
     private EditText usernameEditText;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,7 @@ public class LoginActivity extends Activity {
         this.setContentView(R.layout.activity_login);
 
         usernameEditText = findViewById(R.id.username_edit_text);
+        mDatabaseHelper = new DatabaseHelper(LoginActivity.this);
     }
 
     private boolean isUsernameValid() {
@@ -52,15 +61,49 @@ public class LoginActivity extends Activity {
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("uniqueID", UUID.randomUUID().toString());
             editor.putString("username", usernameEditText.getText().toString());
+            String usrID = UUID.randomUUID().toString();
+            String userName = usernameEditText.getText().toString();
+            String score = String.valueOf(prefs.getInt("bestScore", 0));
             editor.apply();
 
             //TODO: Insert do database uniqueID & username & best score dostępne pod
             //prefs.getString("uniqueID", "null");
             //prefs.getString("username", "null");
             //prefs.getInt("bestScore", 0);
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+            AddData(userName, score);
+            Intent intent = new Intent(LoginActivity.this, StatisticsActivity.class);
+            startActivity(intent);
+
+
         } else {
             Toast.makeText(LoginActivity.this, "Username should have at least 3 characters!", Toast.LENGTH_LONG).show();
         }
+
+    }
+
+
+    public void onClickView(View view) {
+
+            Intent intent = new Intent(LoginActivity.this, StatisticsActivity.class);
+            startActivity(intent);
+
+    }
+
+
+
+    public void AddData(String name, String score){
+        boolean insertData = mDatabaseHelper.addData(name, score);
+        if(insertData) {
+            toastMessage("Youre score has been added!");
+        }else{
+            toastMessage("Something went wrong...");
+        }
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this, message,Toast.LENGTH_SHORT).show();
     }
 
     /*
