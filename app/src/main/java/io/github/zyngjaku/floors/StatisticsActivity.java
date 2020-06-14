@@ -15,9 +15,11 @@ public class StatisticsActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_statistics);
 
+        //TODO: show best score and our score + position
         //SharedPreferences prefs = this.getSharedPreferences("AGH-Floors", Context.MODE_PRIVATE);
-        //String uniqueID = prefs.getString("uniqueID", "null");
-        //uniqueID dla użytkownika (powinno dzialac ale nei testowane)
+        //prefs.getString("uniqueID", "null");
+        //prefs.getInt("bestScore", 0);
+        //uniqueID dla użytkownika (powinno dzialac ale nie testowane)
     }
 
 }

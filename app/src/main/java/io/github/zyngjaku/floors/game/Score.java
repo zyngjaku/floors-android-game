@@ -43,4 +43,8 @@ public class Score {
     public void incrScore() {
         this.score += 1;
     }
+
+    public int getScore() {
+        return score;
+    }
 }

@@ -3,6 +3,7 @@ package io.github.zyngjaku.floors.game;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,6 +16,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.UUID;
 
 import io.github.zyngjaku.floors.GameActivity;
 import io.github.zyngjaku.floors.MainActivity;
@@ -79,6 +82,13 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
             gameThread.setRunning(false);
 
             try {
+                SharedPreferences prefs = context.getSharedPreferences("AGH-Floors", Context.MODE_PRIVATE);
+                if(prefs.getInt("bestScore", 0) < score.getScore()) {
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("bestScore", score.getScore());
+                    editor.apply();
+                }
+
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
