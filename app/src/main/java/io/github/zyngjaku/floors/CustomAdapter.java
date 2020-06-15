@@ -13,14 +13,15 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList user_id, user_name, user_score;
+    private ArrayList user_id, user_name, user_score, user_date;
 
 
-    CustomAdapter(Context context, ArrayList user_id, ArrayList user_name, ArrayList user_score) {
+    CustomAdapter(Context context, ArrayList user_id, ArrayList user_name, ArrayList user_score, ArrayList user_date) {
         this.context = context;
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_score = user_score;
+        this.user_date = user_date;
     }
 
     @NonNull
@@ -33,9 +34,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapter.MyViewHolder holder, int position) {
-        holder.userId_txt.setText(String.valueOf(user_id.get(position)));
+        //holder.userId_txt.setText(String.valueOf(user_id.get(position)));
         holder.name_txt.setText(String.valueOf(user_name.get(position)));
         holder.score_txt.setText(String.valueOf(user_score.get(position)));
+        holder.userId_txt.setText(String.valueOf(user_date.get(position)));
 
     }
 

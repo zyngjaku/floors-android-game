@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +26,8 @@ import com.mysql.cj.xdevapi.Schema;
 import com.mysql.cj.xdevapi.Session;
 import com.mysql.cj.xdevapi.SessionFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 public class LoginActivity extends Activity {
@@ -57,16 +60,20 @@ public class LoginActivity extends Activity {
         if (isUsernameValid()) {
             SharedPreferences prefs = this.getSharedPreferences("AGH-Floors", Context.MODE_PRIVATE);
 
-            String score = String.valueOf(prefs.getInt("bestScore", 0));
+            String score = String.valueOf(prefs.getInt("lastScore", 0));
             String userID = UUID.randomUUID().toString();
             String userName = usernameEditText.getText().toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date dateDate = new Date();
+            String userDate = sdf.format(dateDate).toString();
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("uniqueID", userID);
             editor.putString("username",userName);
+            editor.putString("date",userDate);
             editor.apply();
 
-            AddData(userName, score);
+            AddData(userName, score, userDate);
             Intent intent = new Intent(LoginActivity.this, StatisticsActivity.class);
             startActivity(intent);
             finish();
@@ -83,8 +90,8 @@ public class LoginActivity extends Activity {
     }
 
 
-    public void AddData(String name, String score) {
-        boolean insertData = mDatabaseHelper.addData(name, score);
+    public void AddData(String name, String score,String date) {
+        boolean insertData = mDatabaseHelper.addData(name, score, date);
 
         if (insertData) {
             toastMessage("Youre score has been added!");

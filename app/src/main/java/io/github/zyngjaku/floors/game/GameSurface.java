@@ -83,6 +83,9 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 
             try {
                 SharedPreferences prefs = context.getSharedPreferences("AGH-Floors", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorLast = prefs.edit();
+                editorLast.putInt("lastScore", score.getScore());
+                editorLast.apply();
                 if(prefs.getInt("bestScore", 0) < score.getScore()) {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("bestScore", score.getScore());
