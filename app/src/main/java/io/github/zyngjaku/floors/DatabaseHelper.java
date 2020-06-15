@@ -57,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-//-----------------------------------------------------------------------------------------------------------------
+
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME+ " ORDER BY "+COL_SCORE+ " DESC;";

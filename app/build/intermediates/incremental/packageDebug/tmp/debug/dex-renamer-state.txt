@@ -1,4 +1,4 @@
-#Sun Jun 14 23:56:08 CEST 2020
-base.0=C\:\\Users\\user\\floors\\floors-android-game\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Mon Jun 15 18:28:15 CEST 2020
+base.0=C\:\\Users\\zyngi\\Desktop\\floors-android-game\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

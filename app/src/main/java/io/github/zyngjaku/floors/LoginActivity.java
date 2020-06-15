@@ -36,7 +36,6 @@ public class LoginActivity extends Activity {
     private EditText usernameEditText;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,25 +57,19 @@ public class LoginActivity extends Activity {
         if (isUsernameValid()) {
             SharedPreferences prefs = this.getSharedPreferences("AGH-Floors", Context.MODE_PRIVATE);
 
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("uniqueID", UUID.randomUUID().toString());
-            editor.putString("username", usernameEditText.getText().toString());
-            String usrID = UUID.randomUUID().toString();
-            String userName = usernameEditText.getText().toString();
             String score = String.valueOf(prefs.getInt("bestScore", 0));
+            String userID = UUID.randomUUID().toString();
+            String userName = usernameEditText.getText().toString();
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("uniqueID", userID);
+            editor.putString("username",userName);
             editor.apply();
 
-            //TODO: Insert do database uniqueID & username & best score dostępne pod
-            //prefs.getString("uniqueID", "null");
-            //prefs.getString("username", "null");
-            //prefs.getInt("bestScore", 0);
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
             AddData(userName, score);
             Intent intent = new Intent(LoginActivity.this, StatisticsActivity.class);
             startActivity(intent);
-
-
+            finish();
         } else {
             Toast.makeText(LoginActivity.this, "Username should have at least 3 characters!", Toast.LENGTH_LONG).show();
         }
@@ -85,62 +78,22 @@ public class LoginActivity extends Activity {
 
 
     public void onClickView(View view) {
-
-            Intent intent = new Intent(LoginActivity.this, StatisticsActivity.class);
-            startActivity(intent);
-
+        Intent intent = new Intent(LoginActivity.this, StatisticsActivity.class);
+        startActivity(intent);
     }
 
 
-
-    public void AddData(String name, String score){
+    public void AddData(String name, String score) {
         boolean insertData = mDatabaseHelper.addData(name, score);
-        if(insertData) {
+
+        if (insertData) {
             toastMessage("Youre score has been added!");
-        }else{
+        } else {
             toastMessage("Something went wrong...");
         }
     }
 
-    private void toastMessage(String message){
-        Toast.makeText(this, message,Toast.LENGTH_SHORT).show();
+    private void toastMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
-
-    /*
-    public void addUserToStatistics() {
-        final ProgressDialog progressDialog = ProgressDialog.show(this, "","Please wait...", true);
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Session session = new SessionFactory().getSession("mysqlx://mysql.agh.edu.pl:33060/zyngier2?user=zyngier2&password=XLyfHv87RCN0QfsF");
-                System.err.println("Connected!");
-
-                SignInActivity.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        progressDialog.cancel();
-                        Toast.makeText(getApplicationContext(), "There are some troubles with server!", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                try {
-                    //Class.forName("com.mysql.jdbc.Driver");
-                    Class.forName("com.mysql.jdbc.Driver");
-                    Connection conn = DriverManager.getConnection("jdbc:msql://mysql.agh.edu.pl:3306/zyngier2", "zyngier2", "XLyfHv87RCN0QfsF");
-                    //Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.2:3306/android", "andro", "andro");
-
-                    Statement st = conn.createStatement();
-                    st.executeUpdate("INSERT INTO ranking VALUES (1,'test',1)");
-                    conn.close();
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                }
-
-
-            }
-        });
-
-        thread.start();
-    }
-    */
 }

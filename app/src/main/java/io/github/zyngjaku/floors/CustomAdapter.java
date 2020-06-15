@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>  {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     private Context context;
     private ArrayList user_id, user_name, user_score;
 
 
-    CustomAdapter(Context context, ArrayList user_id, ArrayList user_name, ArrayList user_score){
+    CustomAdapter(Context context, ArrayList user_id, ArrayList user_name, ArrayList user_score) {
         this.context = context;
         this.user_id = user_id;
         this.user_name = user_name;
@@ -44,7 +44,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return user_id.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView userId_txt, name_txt, score_txt;
 

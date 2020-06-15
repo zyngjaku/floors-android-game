@@ -40,9 +40,8 @@ public class MainActivity extends Activity {
 
     public void onClickStatistics(View view) {
         if (isNetworkAvailable()) {
-            SharedPreferences prefs = this.getSharedPreferences("AGH-Floors1", Context.MODE_PRIVATE);
-            String uniqueID = prefs.getString("uniqueID", "null");
-            Intent intent = (uniqueID.equals("null")) ? new Intent(this, LoginActivity.class) : new Intent(this, StatisticsActivity.class);
+            SharedPreferences prefs = this.getSharedPreferences("AGH-Floors", Context.MODE_PRIVATE);
+            Intent intent = (prefs.contains("uniqueID")) ? new Intent(this, StatisticsActivity.class) : new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(MainActivity.this, "No internet connection!", Toast.LENGTH_LONG).show();
