@@ -16,16 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.mysql.cj.xdevapi.Collection;
-import com.mysql.cj.xdevapi.DbDoc;
-import com.mysql.cj.xdevapi.DbDocImpl;
-import com.mysql.cj.xdevapi.DocResult;
-import com.mysql.cj.xdevapi.JsonNumber;
-import com.mysql.cj.xdevapi.JsonString;
-import com.mysql.cj.xdevapi.Schema;
-import com.mysql.cj.xdevapi.Session;
-import com.mysql.cj.xdevapi.SessionFactory;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -35,9 +25,7 @@ public class LoginActivity extends Activity {
     private static final String TAG = "Login";
     DatabaseHelper mDatabaseHelper;
 
-
     private EditText usernameEditText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

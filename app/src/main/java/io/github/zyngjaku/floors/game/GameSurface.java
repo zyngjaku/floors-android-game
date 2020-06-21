@@ -48,7 +48,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     private Obstacle obstacle;
     private ObstacleManager obstacleManager;
 
-    public GameSurface(Context context)  {
+    public GameSurface(Context context) {
         super(context);
 
         this.context = context;
@@ -65,8 +65,8 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            int x = (int)event.getX();
-            int y = (int)event.getY();
+            int x = (int) event.getX();
+            int y = (int) event.getY();
 
             ninja.jump();
         }
@@ -74,11 +74,11 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
         return false;
     }
 
-    public void update()  {
+    public void update() {
         ninja.update();
         obstacleManager.update();
 
-        if(obstacleManager.detectCollision(ninja)) {
+        if (obstacleManager.detectCollision(ninja)) {
             gameThread.setRunning(false);
 
             try {
@@ -86,7 +86,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
                 SharedPreferences.Editor editorLast = prefs.edit();
                 editorLast.putInt("lastScore", score.getScore());
                 editorLast.apply();
-                if(prefs.getInt("bestScore", 0) < score.getScore()) {
+                if (prefs.getInt("bestScore", 0) < score.getScore()) {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("bestScore", score.getScore());
                     editor.apply();
@@ -102,7 +102,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
 
-        if((ninja.getX() < -ninja.getWidth() && ninja.getMovingVectorX() < 0) || (ninja.getMovingVectorX() > 0 && ninja.getX() > Dimensions.screenWidth + ninja.getWidth())) {
+        if ((ninja.getX() < -ninja.getWidth() && ninja.getMovingVectorX() < 0) || (ninja.getMovingVectorX() > 0 && ninja.getX() > Dimensions.screenWidth + ninja.getWidth())) {
             background.randomLevel();
             int newLevel = background.getLevel();
             ninja.incrSpeed();
@@ -113,7 +113,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void draw(Canvas canvas)  {
+    public void draw(Canvas canvas) {
         super.draw(canvas);
 
         background.draw(canvas);
@@ -127,14 +127,14 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
         background = new Background(this, context);
         score = new Score(this, context);
 
-        Bitmap ninja = BitmapFactory.decodeResource(this.getResources(),R.drawable.character);
-        Bitmap scaledNinja = Utils.resizeBitmap(ninja, (ninja.getWidth()*4*Dimensions.characterHeight)/ninja.getHeight(), 4*Dimensions.characterHeight);
+        Bitmap ninja = BitmapFactory.decodeResource(this.getResources(), R.drawable.character);
+        Bitmap scaledNinja = Utils.resizeBitmap(ninja, (ninja.getWidth() * 4 * Dimensions.characterHeight) / ninja.getHeight(), 4 * Dimensions.characterHeight);
 
         this.ninja = new Ninja(this, scaledNinja);
 
         obstacleManager = new ObstacleManager(this);
 
-        gameThread = new GameThread(this,holder);
+        gameThread = new GameThread(this, holder);
         gameThread.setRunning(true);
         gameThread.start();
     }
@@ -146,15 +146,15 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        boolean retry= true;
-        while(retry) {
+        boolean retry = true;
+        while (retry) {
             try {
                 this.gameThread.setRunning(false);
                 this.gameThread.join();
-            }catch(InterruptedException e)  {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            retry= true;
+            retry = true;
         }
     }
 

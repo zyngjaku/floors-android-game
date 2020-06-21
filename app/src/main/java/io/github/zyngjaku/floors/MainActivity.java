@@ -39,20 +39,7 @@ public class MainActivity extends Activity {
     }
 
     public void onClickStatistics(View view) {
-        if (isNetworkAvailable()) {
-            SharedPreferences prefs = this.getSharedPreferences("AGH-Floors1", Context.MODE_PRIVATE);
-            String uniqueID = prefs.getString("uniqueID", "null");
-            Intent intent = (uniqueID.equals("null")) ? new Intent(this, LoginActivity.class) : new Intent(this, StatisticsActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(MainActivity.this, "No internet connection!", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        Intent intent= new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

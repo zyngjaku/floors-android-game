@@ -36,13 +36,6 @@ public class StatisticsActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_statistics);
 
-        SharedPreferences prefs = this.getSharedPreferences("AGH-Floors", Context.MODE_PRIVATE);
-        if (prefs.contains("uniqueID")) {
-            String score = String.valueOf(prefs.getInt("lastScore", 0));
-
-            //TODO: Update score in db
-        }
-
         recycledView = findViewById(R.id.recycledView);
         mDatabaseHelper = new DatabaseHelper(StatisticsActivity.this);
         user_id = new ArrayList<>();
@@ -58,10 +51,7 @@ public class StatisticsActivity extends Activity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recycledView);
-
     }
-
-
 
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

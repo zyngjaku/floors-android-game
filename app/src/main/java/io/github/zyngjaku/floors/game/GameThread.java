@@ -36,7 +36,7 @@ public class GameThread extends Thread {
 
             long waitTime = (now - startTime)/1000000;
             if(waitTime < 10)  {
-                waitTime= 10;
+                waitTime = 10;
             }
 
             try {
